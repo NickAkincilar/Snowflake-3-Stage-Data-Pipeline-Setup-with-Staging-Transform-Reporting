@@ -94,24 +94,25 @@ with Virtual Warehouses, Databases, Roles, Schemas, Resource Monitors & Users us
 
   
 - ROLES x 3
-  *  IMPORT_ROLE    
-        ... USAGE only access for Warehouse "IMPORT_WH" (Can't modify/resize)
-        ... USAGE on STAGING
-        ... USAGE on PROD 
-        ... Full access to REPORTING schema in PROD for all existing & new tables
-        ... Full access to RAW & CLEAN schemas in STAGING for all existing & new tables
-        ... No Access to PROD database
+  *  IMPORT_ROLE  (Can read from file stage & write to both schemas in StagingDB. No Access to Prod)  
+     ... USAGE only access for Warehouse "IMPORT_WH" (Can't modify/resize)
+     ... USAGE access STAGING_SOURCE for import files
+     ... USAGE on STAGING_DB
+       ... Full access to RAW schema in STAGING_DB for all existing & new tables
+       ... Full access to CLEAN schema in STAGING_DB for all existing & new tables
+     ... No Access to PROD database
         
-  *  TRANSFORM_ROLE (Can read & write to STAGING.Raw + PROD.REPORTING)   
-        ... USAGE only access for Warehouse "TRASNFORM_WH" (Can't modify/resize)
-        ... Full access to CLEAN schema in STAGING  for all existing & new tables   
-        ... Full access to REPORTING schema in PROD for all existing & new tables 
-        ... No access to RAW schema in STAGING
+  *  TRANSFORM_ROLE (Can read & write to STAGING_DB.Clean + PROD.REPORTING, No Access to STAGING_DB.Raw)   
+     ... USAGE only access for Warehouse "TRASNFORM_WH" (Can't modify/resize)
+     ... Partial USAGE on STAGING_DB
+     ... Full access to CLEAN schema in STAGING  for all existing & new tables 
+       ... No access to RAW schema in STAGING   
+     ... Full access to REPORTING schema in PROD for all existing & new tables 
  
    *  REPORTING_ROLE (Read-only access to PROD.PROD schema & tables)   
-        ... USAGE only access for Warehouse "REPORTING_WH" (Can't modify/resize)
-        ... Read-Only access to PROD schema in PROD  for all existing & new tables
-        ... No access to STAGING database
+       ... USAGE only access for Warehouse "REPORTING_WH" (Can't modify/resize)
+       ... Read-Only access to PROD schema in PROD  for all existing & new tables
+       ... No access to STAGING database
   
 
 
