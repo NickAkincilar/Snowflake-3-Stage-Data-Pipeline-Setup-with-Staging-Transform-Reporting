@@ -24,18 +24,18 @@ Quick way to start a 3 stage data pipeline process using Snowflake. This allows 
   
 - **3 ROLES**
   *  **IMPORT_ROLE**    
-   * USAGE only access for Warehouse "IMPORT_WH" (Can't modify/resize)
-   * USAGE access STAGING_SOURCE for import files
-   * USAGE on STAGING_DB
-     * Full access to RAW schema in STAGING_DB for all existing & new tables
-     * Full access to CLEAN schema in STAGING_DB for all existing & new tables
+     * USAGE only access for Warehouse "IMPORT_WH" (Can't modify/resize)
+     * USAGE access STAGING_SOURCE for import files
+     * USAGE on STAGING_DB
+       * Full access to RAW schema in STAGING_DB for all existing & new tables
+       * Full access to CLEAN schema in STAGING_DB for all existing & new tables
      * No Access to PROD database
         
   *  **TRANSFORM_ROLE** (Can read & write to STAGING_DB.Clean + PROD.REPORTING, No Access to STAGING_DB.Raw)   
      * USAGE only access for Warehouse "TRASNFORM_WH" (Can't modify/resize)
      * Partial USAGE on STAGING_DB
      * Full access to CLEAN schema in STAGING  for all existing & new tables 
-     * No access to RAW schema in STAGING   
+       * No access to RAW schema in STAGING   
      * Full access to REPORTING schema in PROD for all existing & new tables 
  
    *  **REPORTING_ROLE** (Read-only access to PROD.PROD schema & tables)   
