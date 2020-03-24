@@ -7,6 +7,7 @@ Quick way to start a 3 stage data pipeline process using Snowflake. This allows 
 <br><br>
 ![](https://github.com/NickAkincilar/Snowflake-3-Stage-Data-Pipeline-Setup-with-Staging-Transform-Reporting/blob/master/images/chart.png?raw=true)
 
+***Assets list***
 
 - **3 WAREHOUSES**
   * **IMPORT_WH**     (MEDIUM, Quick AutoSuspend 15 secs, No Multi-Clustering. INITIALLY_SUSPENDED)
