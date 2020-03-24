@@ -5,6 +5,56 @@ Quick way to start a 3 stage data pipeline process using Snowflake. This allows 
 
 **Below is the diagram of what will be setup and the security for each role.**
 
+- **3 WAREHOUSES**
+  * **IMPORT_WH**     (MEDIUM, Quick AutoSuspend 15 secs, No Multi-Clustering. INITIALLY_SUSPENDED)
+  * **TRANSFORM_WH**  (MEDIUM, Quick AutoSuspend 15 secs, No Multi-Clustering, INITIALLY_SUSPENDED)
+  * **REPORTING_WH**  (SMALL, Multi-Cluster upto 5, AutoSuspend after 5 mins to keep cache alive,INITIALLY_SUSPENDED)
+  
+
+- **2 DATABASES** 
+  * **STAGING**
+  * **PROD**
+
+- **3 SCHEMAS**
+  * **STAGING.RAW**     (Default Data Retension 3 days for tables to keep original raw data as it is ingested)
+  * **STAGING.CLEAN**   (Default Data Retension 3 days for tables to keep cleaned data for ETL & modeling & ETL)
+  * **PROD.REPORTING**   (Data Retension 90 days - Used by Business Users for analytics & keeps 90 day continous history )
+
+
+  
+- **3 ROLES**
+  *  **IMPORT_ROLE**    
+        ... USAGE only access for Warehouse "IMPORT_WH" (Can't modify/resize)
+        ... USAGE access STAGING_SOURCE for import files
+        ... USAGE on STAGING_DB
+          ... Full access to RAW schema in STAGING_DB for all existing & new tables
+          ... Full access to CLEAN schema in STAGING_DB for all existing & new tables
+        ... No Access to PROD database
+        
+  *  **TRANSFORM_ROLE** (Can read & write to STAGING_DB.Clean + PROD.REPORTING, No Access to STAGING_DB.Raw)   
+        ... USAGE only access for Warehouse "TRASNFORM_WH" (Can't modify/resize)
+        ... Partial USAGE on STAGING_DB
+          ... Full access to CLEAN schema in STAGING  for all existing & new tables 
+          ... No access to RAW schema in STAGING   
+        ... Full access to REPORTING schema in PROD for all existing & new tables 
+ 
+   *  **REPORTING_ROLE** (Read-only access to PROD.PROD schema & tables)   
+        ... USAGE only access for Warehouse "REPORTING_WH" (Can't modify/resize)
+        ... Read-Only access to PROD schema in PROD  for all existing & new tables
+        ... No access to STAGING database
+  
+
+- **3 USERS**  (Test Users)
+   * UserReporting  (belongs to REPORTING_ROLE)
+   * UserTransform  (belongs to TRANSFORM_ROLE)
+   * UserImport     (belongs to IMPORT_ROLE)
+
+
+- **3 USAGE MONITORS**
+   * IMPORT_MONITOR     (100 credits a month)
+   * TRANSFORM_MONITOR  (100 credits a month)
+   * REPORTING_MONITOR  (100 credits a month)
+
 This scipt assumes these roles are locked in terms of what they can do within their domain. All 3 users/roles are secured in a way that they can only use the databases/schemas that are assigned to them.  Warehouses are setup to auto start & stop on demand and users CAN NOT change the size of the warehouses nor manually start or stop them.
 Run the below script with a user that has **AccountAdmin & SysAdmin roles**. Feel free to change any of the resources names by changing the variable values located in the top portion. 
 
