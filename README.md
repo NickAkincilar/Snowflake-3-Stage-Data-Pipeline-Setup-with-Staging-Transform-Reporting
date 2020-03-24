@@ -1,8 +1,9 @@
 # Snowflake 3 Stage Data Pipeline Setup with Staging, Transform, Reporting
 Quick way to start a 3 stage data pipeline process using Snowflake. This allows the process to broken in to 3 stages (**STAGING, TRANSFORM & REPORTING**) with different resources, roles & securities that can be assigned to different team members adn/or tools. This script will quickly create Layers in Snowflake using best practices.
 
-It will create Warehouses, roles, users, databases, schemas, usage monitores & security automatically to give you a head start. Below is the diagram of what will be setup and the security for each role.
+**It will all necessary resources including Warehouses, roles, users, databases, schemas, usage monitores & security using best practices automatically to give you a quick head start. Below is the diagram of what will be setup and the security for each role.**
 
+This scipt assumes these roles are locked in terms of what they can do within their domain. All 3 users/roles are secured in a way that they can only use the databases/schemas that are assigned to them.  Warehouses are setup to auto start & stop on demand and users CAN NOT change the size of the warehouses nor manually start or stop them.
 Run the below script with a user that has **AccountAdmin & SysAdmin roles**. Feel free to change any of the resources names by changing the variable values located in the top portion. 
 
 ![](https://github.com/NickAkincilar/Snowflake-3-Stage-Data-Pipeline-Setup-with-Staging-Transform-Reporting/blob/master/images/chart.png?raw=true)
