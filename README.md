@@ -73,6 +73,11 @@ with Virtual Warehouses, Databases, Roles, Schemas, Resource Monitors & Users us
 --------------------------------------------------------------------------
 */
 
+
+
+--------------------------------------------------------------------------
+---  MODIFY VARIABLES TO CHANGE ANY RESOURCE NAME
+--------------------------------------------------------------------------
 set V_ROLE_IMPORT ='IMPORT_ROLE';
 set V_ROLE_TRANSFORM ='TRANSFORM_ROLE';
 set V_ROLE_BI ='REPORTING_ROLE';
