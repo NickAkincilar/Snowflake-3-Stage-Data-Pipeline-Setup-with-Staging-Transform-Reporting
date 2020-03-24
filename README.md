@@ -3,24 +3,27 @@ Quick way to start a 3 stage data pipeline process using Snowflake. This allows 
 
 **It will automatically create all necessary resources including Warehouses, roles, users, databases, schemas, usage monitors & associated security using best practices to give you a quick head start.**
 
-**Below is the diagram of what will be setup and the security for each role.**
+**Below is the diagram & list of resources that will be created**
+![](https://github.com/NickAkincilar/Snowflake-3-Stage-Data-Pipeline-Setup-with-Staging-Transform-Reporting/blob/master/images/chart.png?raw=true)
+
 
 - **3 WAREHOUSES**
   * **IMPORT_WH**     (MEDIUM, Quick AutoSuspend 15 secs, No Multi-Clustering. INITIALLY_SUSPENDED)
   * **TRANSFORM_WH**  (MEDIUM, Quick AutoSuspend 15 secs, No Multi-Clustering, INITIALLY_SUSPENDED)
   * **REPORTING_WH**  (SMALL, Multi-Cluster upto 5, AutoSuspend after 5 mins to keep cache alive,INITIALLY_SUSPENDED)
-  
+<br><br><br>
 
 - **2 DATABASES** 
   * **STAGING**
   * **PROD**
+<br><br><br>
 
 - **3 SCHEMAS**
   * **STAGING.RAW**     (Default Data Retension 3 days for tables to keep original raw data as it is ingested)
   * **STAGING.CLEAN**   (Default Data Retension 3 days for tables to keep cleaned data for ETL & modeling & ETL)
   * **PROD.REPORTING**   (Data Retension 90 days - Used by Business Users for analytics & keeps 90 day continous history )
 
-
+<br><br><br>
   
 - **3 ROLES**
   *  **IMPORT_ROLE**  (Can read from file stage & write to both schemas in StagingDB. No Access to Prod)  
@@ -43,12 +46,12 @@ Quick way to start a 3 stage data pipeline process using Snowflake. This allows 
        * Read-Only access to PROD schema in PROD  for all existing & new tables
        * No access to STAGING database
   
-
+<br><br><br>
 - **3 USERS**  (Test Users)
    * UserReporting  (belongs to REPORTING_ROLE)
    * UserTransform  (belongs to TRANSFORM_ROLE)
    * UserImport     (belongs to IMPORT_ROLE)
-
+<br><br><br>
 
 - **3 USAGE MONITORS**
    * IMPORT_MONITOR     (100 credits a month)
@@ -58,7 +61,6 @@ Quick way to start a 3 stage data pipeline process using Snowflake. This allows 
 This scipt assumes these roles are locked in terms of what they can do within their domain. All 3 users/roles are secured in a way that they can only use the databases/schemas that are assigned to them.  Warehouses are setup to auto start & stop on demand and users CAN NOT change the size of the warehouses nor manually start or stop them.
 Run the below script with a user that has **AccountAdmin & SysAdmin roles**. Feel free to change any of the resources names by changing the variable values located in the top portion. 
 
-![](https://github.com/NickAkincilar/Snowflake-3-Stage-Data-Pipeline-Setup-with-Staging-Transform-Reporting/blob/master/images/chart.png?raw=true)
 
 
 
