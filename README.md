@@ -3,7 +3,7 @@ Quick way to start a 3 stage data pipeline process using Snowflake. This allows 
 
 It will create Warehouses, roles, users, databases, schemas, usage monitores & security automatically to give you a head start. Below is the diagram of what will be setup and the security for each role.
 
-Run the below script with a user that has **AccountAdmin & Sysadmin roles**. Feel free to change any of the resources names by changing the variable values located in the top portion. 
+Run the below script with a user that has **AccountAdmin & SysAdmin roles**. Feel free to change any of the resources names by changing the variable values located in the top portion. 
 
 ![](https://github.com/NickAkincilar/Snowflake-3-Stage-Data-Pipeline-Setup-with-Staging-Transform-Reporting/blob/master/images/chart.png?raw=true)
 
