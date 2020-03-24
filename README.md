@@ -4,6 +4,7 @@ Quick way to start a 3 stage data pipeline process using Snowflake. This allows 
 **It will automatically create all necessary resources including Warehouses, roles, users, databases, schemas, usage monitors & associated security using best practices to give you a quick head start.**
 
 **Below is the diagram & list of resources that will be created**
+<br><br>
 ![](https://github.com/NickAkincilar/Snowflake-3-Stage-Data-Pipeline-Setup-with-Staging-Transform-Reporting/blob/master/images/chart.png?raw=true)
 
 
@@ -11,19 +12,18 @@ Quick way to start a 3 stage data pipeline process using Snowflake. This allows 
   * **IMPORT_WH**     (MEDIUM, Quick AutoSuspend 15 secs, No Multi-Clustering. INITIALLY_SUSPENDED)
   * **TRANSFORM_WH**  (MEDIUM, Quick AutoSuspend 15 secs, No Multi-Clustering, INITIALLY_SUSPENDED)
   * **REPORTING_WH**  (SMALL, Multi-Cluster upto 5, AutoSuspend after 5 mins to keep cache alive,INITIALLY_SUSPENDED)
-<br><br><br>
+<br><br>
 
 - **2 DATABASES** 
   * **STAGING**
   * **PROD**
-<br><br><br>
+<br><br>
 
 - **3 SCHEMAS**
   * **STAGING.RAW**     (Default Data Retension 3 days for tables to keep original raw data as it is ingested)
   * **STAGING.CLEAN**   (Default Data Retension 3 days for tables to keep cleaned data for ETL & modeling & ETL)
   * **PROD.REPORTING**   (Data Retension 90 days - Used by Business Users for analytics & keeps 90 day continous history )
-
-<br><br><br>
+<br><br>
   
 - **3 ROLES**
   *  **IMPORT_ROLE**  (Can read from file stage & write to both schemas in StagingDB. No Access to Prod)  
@@ -45,13 +45,13 @@ Quick way to start a 3 stage data pipeline process using Snowflake. This allows 
        * USAGE only access for Warehouse "REPORTING_WH" (Can't modify/resize)
        * Read-Only access to PROD schema in PROD  for all existing & new tables
        * No access to STAGING database
-  
-<br><br><br>
+<br><br>
+
 - **3 USERS**  (Test Users)
    * UserReporting  (belongs to REPORTING_ROLE)
    * UserTransform  (belongs to TRANSFORM_ROLE)
    * UserImport     (belongs to IMPORT_ROLE)
-<br><br><br>
+<br><br>
 
 - **3 USAGE MONITORS**
    * IMPORT_MONITOR     (100 credits a month)
