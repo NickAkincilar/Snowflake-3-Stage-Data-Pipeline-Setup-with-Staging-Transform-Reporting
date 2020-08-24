@@ -1,5 +1,5 @@
 # Snowflake 3 Stage Data Pipeline Setup with Staging, Transform, Reporting Layers
-11uick way to start a 3 stage data pipeline process using Snowflake. This allows the process to broken in to 3 stages (**STAGING, TRANSFORM & REPORTING**) with different resources, roles & securities that can be assigned to different team members adn/or tools. This script will quickly create Layers in Snowflake using best practices.
+Quick way to start a 3 stage data pipeline process using Snowflake. This allows the process to broken in to 3 stages (**STAGING, TRANSFORM & REPORTING**) with different resources, roles & securities that can be assigned to different team members adn/or tools. This script will quickly create Layers in Snowflake using best practices.
 
 **It will automatically create all necessary resources including Warehouses, roles, users, databases, schemas, usage monitors & associated security using best practices to give you a quick head start.**
 
