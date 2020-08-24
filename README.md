@@ -10,9 +10,9 @@ Quick way to start a 3 stage data pipeline process using Snowflake. This allows 
 ***Assets list***
 
 - **3 WAREHOUSES**
-  * **IMPORT_WH**     (MEDIUM, Quick AutoSuspend 15 secs, No Multi-Clustering. INITIALLY_SUSPENDED)
-  * **TRANSFORM_WH**  (MEDIUM, Quick AutoSuspend 15 secs, No Multi-Clustering, INITIALLY_SUSPENDED)
-  * **REPORTING_WH**  (SMALL, Multi-Cluster upto 5, AutoSuspend after 5 mins to keep cache alive,INITIALLY_SUSPENDED)
+  * **IMPORT_WH**     (MEDIUM, Quick AutoSuspend 5 mins, No Multi-Clustering. INITIALLY_SUSPENDED)
+  * **TRANSFORM_WH**  (MEDIUM, Quick AutoSuspend 5 mins, No Multi-Clustering, INITIALLY_SUSPENDED)
+  * **REPORTING_WH**  (SMALL, Multi-Cluster upto 5, AutoSuspend after 15 mins to keep cache alive,INITIALLY_SUSPENDED)
 <br><br>
 
 - **2 DATABASES** 
@@ -174,7 +174,7 @@ GRANT ROLE identifier($V_ROLE_IMPORT) TO ROLE "SYSADMIN";
 
 --------------------------------------------------------------------------
 --- CREATE WAREHOUSE(MEDIUM - NO AUTO CLUSER) FOR INGESTING RAW DATA 
---- SUSPEND IMMEDIATELY (15 secs) AFTER INGESTION JOBS ARE COMPLETE
+--- SUSPEND after 5 mins (300 secs) AFTER INGESTION JOBS ARE COMPLETE
 --------------------------------------------------------------------------
 
 use role SYSADMIN;
@@ -318,7 +318,7 @@ GRANT ROLE identifier($V_ROLE_TRANSFORM) TO ROLE "SYSADMIN";
 
 --------------------------------------------------------------------------
 --- CREATE WAREHOUSE(SMALL - NO AUTO CLUSER) FOR INGESTING RAW DATA 
---- SUSPEND IMMEDIATELY (5 secs) AFTER INGESTION JOBS ARE COMPLETE
+--- SUSPEND after 5 mins (300 secs) AFTER INGESTION JOBS ARE COMPLETE
 --------------------------------------------------------------------------
 use role SYSADMIN;
 
@@ -437,13 +437,13 @@ GRANT ROLE identifier($V_ROLE_BI) TO ROLE "SYSADMIN";
 --------------------------------------------------------------------------
 --- CREATE WAREHOUSE(SMALL - NO AUTO CLUSER) FOR INGESTING RAW DATA 
 --- Multi Cluster up to 5 clusters for Concurrency
---- WAIT TO SUSPEND 5 mins (300 secs) after last query not to loose cache data 
+--- WAIT TO SUSPEND 15 mins (900 secs) after last query not to loose cache data 
 --------------------------------------------------------------------------
 
 use role SYSADMIN;
 
 CREATE OR REPLACE WAREHOUSE identifier($V_WHNAME_BI) WITH WAREHOUSE_SIZE = 'SMALL' WAREHOUSE_TYPE = 'STANDARD' 
-INITIALLY_SUSPENDED = TRUE  AUTO_SUSPEND = 600 AUTO_RESUME = TRUE 
+INITIALLY_SUSPENDED = TRUE  AUTO_SUSPEND = 900 AUTO_RESUME = TRUE 
 MIN_CLUSTER_COUNT = 1 MAX_CLUSTER_COUNT = 5 SCALING_POLICY = 'STANDARD' 
 COMMENT = 'Used only for BI Users';
 
