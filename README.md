@@ -63,7 +63,7 @@ This scipt assumes these roles are locked in terms of what they can do within th
 Run the below script with a user that has **AccountAdmin & SysAdmin roles**. Feel free to change any of the resources names by changing the variable values located in the top portion. 
 
 
-
+Credit Monitoring & Stage Creation is optional. Please comment out if not needed.
 
 
 
