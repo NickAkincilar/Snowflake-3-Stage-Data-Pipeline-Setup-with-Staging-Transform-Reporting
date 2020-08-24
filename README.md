@@ -210,10 +210,10 @@ CREATE TABLE JSON_WEBLOGS ("IMPORTDATE" TIMESTAMP default current_timestamp(), "
 --- CREATE IMPORT STAGE & SAMPLE JSON FILE FORMAT
 --------------------------------------------------------------------------
 
-create or replace stage IMPORT_STAGE
-url='azure://something.blob.core.windows.net/somefolder'
-credentials=(azure_sas_token='YourSasToken')
-file_format = (type = 'CSV');
+--create or replace stage IMPORT_STAGE
+--url='azure://something.blob.core.windows.net/somefolder'
+--credentials=(azure_sas_token='YourSasToken')
+--file_format = (type = 'CSV');
 
 CREATE FILE FORMAT MYJSON 
 TYPE = 'JSON' 
@@ -252,8 +252,8 @@ use schema identifier($V_SCHEMA_CLEAN) ;
 grant ALL privileges On schema identifier($V_SCHEMA_CLEAN) to role identifier($V_ROLE_IMPORT);
 
 
-use schema identifier($V_SCHEMA_IMPORT) ;
-grant USAGE On stage IMPORT_STAGE to role identifier($V_ROLE_IMPORT);
+--use schema identifier($V_SCHEMA_IMPORT) ;
+--grant USAGE On stage IMPORT_STAGE to role identifier($V_ROLE_IMPORT);
 
 use schema identifier($V_SCHEMA_IMPORT) ;
 grant USAGE On FILE FORMAT MYJSON  to role identifier($V_ROLE_IMPORT);
